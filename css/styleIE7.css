@@ -1,0 +1,367 @@
+@charset "utf-8";
+/* CSS Document */
+
+html,body,div,ul,ol,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,pre,form,p,blockquote,fieldset,input,hr {margin:0; padding:0;}
+h1,h2,h3,h4,h5,h6,pre,code,address,caption,cite,code,em,strong,th {font-size:1em; font-weight:normal; font-style:normal;}
+ul,ol {list-style:none;}
+fieldset,img,hr {border:none;}
+caption,th {text-align:left;}
+table {border-collapse:collapse; border-spacing:0;}
+td {vertical-align:top;}
+
+html{
+	overflow:hidden;
+}
+
+body{
+	position:absolute;
+	width:100%;
+	height:100%;
+	font-family:Arial, Helvetica, sans-serif;
+}
+
+#map{
+	height:100%;
+	width:100%;
+	background-color:#d0cfd4
+}
+
+#topPanel{
+	position:absolute;
+	width:100%;
+	padding:10px;;
+	background-color:#848484;
+	z-index:100;
+}
+
+#LegText{
+	display:inline;
+	color:#fff;
+	font-size:14px;
+	margin-right:80px;
+	cursor:pointer;
+}
+
+#LegText:hover{
+	color:#555;
+}
+
+#legSrchSplit{
+	position:absolute;
+	top:20%;
+	height:60%;
+	width:1px;
+	background-color:#eaeaea;
+	display:inline;
+	z-index:200;
+}
+
+#searchText{
+	display:inline;
+	color:#fff;
+	font-size:14px;
+	margin-left:7px;
+	cursor:pointer;
+}
+
+#searchText:hover{
+	color:#555;
+}
+
+.search_field {
+    display: inline;
+	margin-left:0px;
+	width:220px;
+    border: 1px inset #ccc;
+	background:#dadada;
+}
+
+.search_field input {
+    border: none;
+    padding: 0;
+}
+
+#search{
+	background-color:#dadada;
+	outline:none;
+	color:#555;
+	font-style:italic;
+	width:200px;
+	margin-left:4px;
+	margin-bottom:0px;
+}
+
+.search_field button {
+	display:none;
+    border: none;
+    background: none;
+	cursor:pointer;
+}
+
+#geoLocImg{
+	height:13px;
+	padding-top:2px;
+}
+
+.ui-autocomplete{
+	position:absolute;
+	background-color:#dadada;
+	width:215px;
+	max-height:500px;
+	border:#848484 solid 1px;
+	font-size:12px;
+	overflow:auto;
+}
+
+.ui-autocomplete-category {
+	font-weight: bold;
+	line-height: 1.5;
+	padding-top:.5em;
+	padding: .2em .4em;
+	font-size:13px
+}
+
+.ui-menu-item{
+	outline:none;
+	padding: .2em .4em;
+}
+
+.ui-state-hover{
+	background:#999;
+	display:block;
+	outline:none;
+}
+
+.ui-state-hover:hover{
+	background:#999;
+	display:block;
+	outline:none;
+	cursor:pointer;
+}
+
+#popupArrow{
+	display:none;
+	position:absolute;
+	z-index:99;
+}
+
+#popup{
+	position:absolute;
+	display:none;
+	z-index:99;
+	background-color:#dadada;
+	width:250px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+}
+
+#popupBanner{
+	width:250px;
+	background-color:#848484;
+	-moz-border-top-right-radius:5px;
+	-webkit-border-top-right-radius:5px;
+	border-top-right-radius:5px;
+	-moz-border-top-left-radius:5px;
+	-webkit-border-top-left-radius:5px;
+	border-top-left-radius:5px;
+	cursor:move;
+}
+
+#closePopup{
+	position:absolute;
+	right:5px;
+	top:0px;
+	font-family:Verdana, Geneva, sans-serif;
+	font-weight:bold;
+	font-size:13px;
+	color:#fff;
+	cursor:pointer;
+}
+
+#closePopup:hover{
+	color:#333;
+}
+
+#popupTitle{
+	color:#fff;
+	padding:5px;
+	padding-left:10px;
+	width:220px;
+	font-size:12px;
+	font-weight:bold;
+}
+
+#description{
+	color:#3e3e3e;
+	margin-top:5px;
+	padding:10px;
+	padding-bottom:3px;
+	font-size:12px;
+}
+
+#popUpLine{
+	width:80px;
+	height:1px;
+	background-color:#999;
+	margin-top:-10px;
+	margin:10px;
+	margin-bottom:10px;
+}
+
+#pageLink{
+	color:#777;
+	padding:10px;
+	font-size:12px;
+	text-decoration:none;
+}
+
+#pageLink:hover{
+	color:#333;
+	padding:10px;
+	padding-top:6px;
+	font-size:12px;
+	text-decoration:underline;
+}
+
+#pageLink:visited{
+	color:#777;
+	padding:10px;
+	padding-top:6px;
+	font-size:12px;
+	text-decoration:none;
+}
+
+#zoom{
+	color:#777;
+	padding:10px;
+	padding-top:6px;
+	padding-bottom:8px;
+	font-size:12px;
+	text-decoration:none;
+}
+
+#zoom:hover{
+	color:#333;
+	padding:10px;
+	padding-top:6px;
+	padding-bottom:8px;
+	font-size:12px;
+	cursor:pointer;
+	text-decoration:underline;
+}
+
+#siteImg{
+	padding:10px;
+	max-height:150px;
+	max-width:230px;
+}
+
+#legend{
+	position:absolute;
+	padding:10px;
+	display:none;
+	background:#555;
+	color:#fff;
+	font-size:12px;
+	top:40px;
+	border:#848484 solid 1px;
+	border-top:none;
+	z-index:40;
+}
+
+#iconSep{
+	background-color:#848484;
+	width:100%;
+	height:1px;
+	margin-top:5px;
+	margin-bottom:5px;
+}
+
+td{
+	padding:2px;
+	vertical-align:middle;
+}
+
+#zoomToggle{
+	position:absolute;
+	top:10%;
+	right:4%;
+	z-index:1000;
+	border-collapse:collapse;
+	cursor:pointer;
+}
+
+.zTab{
+	padding:0;
+}
+
+.zoom{
+	width:25px;
+	height:25px;
+}
+
+/* Animated Symbol for Geolocator */
+ @-webkit-keyframes
+       pulse
+      {
+        0%
+        {
+          opacity: 1.0;
+          -webkit-transform: scale(1.25);
+
+        }
+        45%
+        {
+          opacity: .20;
+          -webkit-transform: scale(.80);
+
+        }
+        100%
+        {
+          opacity: 1.0;
+          -webkit-transform: scale(1.25);
+
+        }
+      }
+@-moz-keyframes
+       pulse
+      {
+        0%
+        {
+          opacity: 1.0;
+          -moz-transform: scale(1.25);
+
+        }
+        45%
+        {
+          opacity: .20;
+          -moz-transform: scale(.80);
+
+        }
+        100%
+        {
+          opacity: 1.0;
+          -moz-transform: scale(1.25);
+
+        }
+      }
+#mapCanvas_graphics_layer
+      {
+        -webkit-animation-duration: 3s;
+        -webkit-animation-iteration-count: infinite;
+        -webkit-animation-name: pulse;
+        -moz-animation-duration: 3s;
+        -moz-animation-iteration-count: infinite;
+        -moz-animation-name: pulse;
+      }
+	  
+#map_graphics_layer
+      {
+        -webkit-animation-duration: 3s;
+        -webkit-animation-iteration-count: infinite;
+        -webkit-animation-name: pulse;
+        -moz-animation-duration: 3s;
+        -moz-animation-iteration-count: infinite;
+        -moz-animation-name: pulse;
+      }

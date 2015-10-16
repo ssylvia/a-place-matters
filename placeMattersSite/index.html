@@ -1,0 +1,154 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8,IE=9">
+<title>Place Matters - Map</title>
+<meta name="Keywords" content="Esri, Environmental Systems Research Institute, Map Stories, Mapstories, City Lore, Place Matters">
+<meta name="description" content="An Esri Map Story that developed for Place matters, a project under City Lore and the Municipal Art Society. This map allows you to discover interesting places around New York City">
+<link rel="shortcut icon" type="image/ico" href="http://www.esri.com/favicon.ico">
+
+<link href="http://serverapi.arcgisonline.com/jsapi/arcgis/2.6/js/dojo/dijit/themes/claro/claro.css" rel="stylesheet" type="text/css">
+
+<link href="css/style.css" rel="stylesheet" type="text/css">
+
+<!--[if IE 7]>
+<link href="css/styleIE7.css" rel="stylesheet" type="text/css">
+<![endif]-->
+
+<script type="text/javascript" src="http://serverapi.arcgisonline.com/jsapi/arcgis/?v=2.6compact"></script>
+<script type="text/javascript">var djConfig = {parseOnLoad: true};</script>
+<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
+<script type="text/javascript" src="js/loadJSON.js"></script>
+<script type="text/javascript" src="js/map.js"></script>
+<script type="text/javascript" src="js/location.js"></script>
+<script type="text/javascript" src="js/layout.js"></script>
+
+<script type="text/javascript">
+var iPad = false;
+$(document).ready(function(e) {
+	if(navigator.userAgent.match(/iPad/i) != null){
+		iPad = true;
+		fitToIpad();
+		userAg = navigator.userAgent.split('CPU OS ',2);
+		os = userAg[1].charAt(0);
+		if(os < 5){
+			alert("The Map Story you are trying to view works best on iPads running iOS 5. You are currently using an iPad with an older version of iOS. Please update your iPad software to prevent safari from crashing.");
+		}
+	}
+});
+
+function fitToIpad(){
+	$("#introCon").css('height','530px');
+}
+</script>
+
+</head>
+
+<body class="claro">
+
+	<div id="map">
+    	<div id="topPanel">
+            <div class="demo">
+            	<p id="LegText">L E G E N D ▲</p>
+                <div class="search_field">
+                    <input id="search" value="Address, neighborhood, or place" onBlur="addValue()" onClick="clearField()" onKeyPress="findSite(event)">
+                    <button type="submit"  onClick="locate()"><img id="geoLocImg" alt="" src="images/geolocation_icon.png"></button>
+                </div>
+                <p id="searchText" onClick="findSiteSearch(event)">S E A R C H</p>
+                <p id="helpText">H E L P</p>
+            </div><!-- End demo -->
+        </div><!--topPanel-->
+		<div id="legend">
+            <table class="legendTable">
+                <tr>
+                   	<td><input id="selAllChk" class="legChk" checked="checked" type="checkbox" onClick="hideAll()"></td><td></td><td>Select/Clear All</td>
+                </tr>
+           </table>
+           <div id="iconSep"></div>
+           <table class="legendTable">
+                <tr>
+                   	<td><input id="ResChk" class="legChk" checked="checked" type="checkbox" onClick="clearCat(event,'Residential','ResChk')"></td><td><img alt="" src="images/icons/residential.png"></td><td>Residential</td>
+                </tr>
+                <tr>
+                   	<td><input id="PubArtChk" class="legChk" checked="checked" type="checkbox" onClick="clearCat(event,'Public Art','PubArtChk')"></td><td><img alt="" src="images/icons/publicArt.png"></td><td>Public Art</td>
+                </tr>
+                <tr>
+                   	<td><input id="IndusChk" class="legChk" checked="checked" type="checkbox" onClick="clearCat(event,'Industrial','IndusChk')" ></td><td><img alt="" src="images/icons/industrial.png"></td><td>Industrial</td>
+                </tr>
+                <tr>
+                   	<td><input id="ComChk" class="legChk" checked="checked" type="checkbox" onClick="clearCat(event,'Commercial','ComChk')"></td><td><img alt="" src="images/icons/commercial.png"></td><td>Commercial</td>
+                </tr>
+                <tr>
+                   	<td><input id="InfraChk" class="legChk" checked="checked" type="checkbox" onClick="clearCat(event,'Infrastructure','InfraChk')"></td><td><img alt="" src="images/icons/infrastructure.png"></td><td>Infrastructure</td>
+                </tr>
+                <tr>
+                   	<td><input id="RoadChk" class="legChk" checked="checked" type="checkbox" onClick="clearCat(event,'Roadway/Sidewalk','RoadChk')"></td><td><img alt="" src="images/icons/roadway.png"></td><td>Roadway/Sidewalk</td>
+                </tr>
+                <tr>
+                   	<td><input id="ParksChk" class="legChk" checked="checked" type="checkbox" onClick="clearCat(event,'Parks & Gardens','ParksChk')"></td><td><img alt="" src="images/icons/parks.png"></td><td>Parks &amp; Gardens</td>
+                </tr>
+                <tr>
+                   	<td><input id="InstChk" class="legChk" checked="checked" type="checkbox" onClick="clearCat(event,'Institution','InstChk')"></td><td><img alt="" src="images/icons/institution.png"></td><td>Institution</td>
+                </tr>
+                <tr>
+                   	<td><input id="ThtrChk" class="legChk" checked="checked" type="checkbox" onClick="clearCat(event,'Theatre','ThtrChk')"></td><td><img alt="" src="images/icons/theatre.png"></td><td>Theatre</td>
+                </tr>
+                <tr>
+                   	<td><input id="OpenChk" class="legChk" checked="checked" type="checkbox" onClick="clearCat(event,'Open Space','OpenChk')"></td><td><img alt="" src="images/icons/open.png"></td><td>Open Space</td>
+                </tr>
+                <tr>
+                   	<td><input id="BurChk" class="legChk" checked="checked" type="checkbox" onClick="clearCat(event,'Burial Site','BurChk')"></td><td><img alt="" src="images/icons/burial.png"></td><td>Burial Site</td>
+                </tr>
+                <tr>
+                   	<td><input id="MarChk" class="legChk" checked="checked" type="checkbox" onClick="clearCat(event,'Market','MarChk')"></td><td><img alt="" src="images/icons/market.png"></td><td>Market</td>
+                </tr>
+                <tr>
+                   	<td><input id="OffChk" class="legChk" checked="checked" type="checkbox" onClick="clearCat(event,'Office Building','OffChk')"></td><td><img alt="" src="images/icons/office.png"></td><td>Office Building</td>
+                </tr>
+                <tr>
+                   	<td><input id="PoolChk" class="legChk" checked="checked" type="checkbox" onClick="clearCat(event,'Pools','PoolChk')"></td><td><img alt="" src="images/icons/pool.png"></td><td>Pools</td>
+                </tr>
+                <tr>
+                   	<td><input id="PubHallChk" class="legChk" checked="checked" type="checkbox" onClick="clearCat(event,'Public Hall','PubHallChk')"></td><td><img alt="" src="images/icons/publicHall.png"></td><td>Public Hall</td>
+                </tr>
+            </table>
+        </div><!--legend-->
+        <table id="zoomToggle">
+        	<tr>
+            	<td class="zTab"><img alt="" id="zoomIn" class="zoom" onClick="zIn()" src="images/zoom.png"></td>
+            </tr>
+            <tr>
+            	<td class="zTab"><img alt="" id="zoomOut" class="zoom" onClick="zOut()" src="images/zoomOut.png"></td>
+            </tr>
+        </table>
+        <div id="helpDialog">
+        	<p id="helpHeader">HOW TO USE THIS MAP</p>
+            <ul id="helpItems">
+            	<li class="help">Click on icons to display more information about Place Matters sites</li>
+                <li class="help">Search through all Place Matters sites using the text box above and select a place from the dropdown menu</li>
+                <li class="help">Search for a location in New York City by typing in the text box above and clicking "SEARCH"</li>
+                <li class="help">Search for your current location by clicking on the blue circle icon within the text box above (only visible on web browsers that support geolocation)</li>
+				<li class="help">Filter places by type using the checkboxes located in the legend box</li>
+				<li class="help">Hide legend by clicking on the "LEGEND" in the top left corner</li>
+			</ul>
+            <p id="closeHelp" onClick="closeHelp()">C L O S E</p>
+        </div><!--/helpDialog-->
+    </div><!--mapCanvas-->
+    
+    <!--Popup-->
+    <img alt="" id="popupArrow" src="images/popupArrowSW.png">
+    <div id="popup">
+    	<div id="popupBanner">
+        	<p id="popupTitle"></p>
+            <p id="closePopup" onClick="closePopup()">X</p>
+        </div><!--popupBanner-->
+        <p id="description"></p>
+        <div id="popUpLine"></div>
+        <a id='pageLink' href="" target="_blank">MORE INFORMATION</a>
+        <center><img alt="" id="siteImg" src=""></center>
+        <div id='zoom' onClick='zoomTo()'>ZOOM TO</div>
+    </div><!--popup-->
+</body>
+</html>
